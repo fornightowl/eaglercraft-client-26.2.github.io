@@ -1,0 +1,138 @@
+/* ==========================================
+   Main CSS for WebApp / HTML5 Game Hosting
+   Target: GitHub Pages site hosting full-viewport app
+   ========================================== */
+
+/* --- 1. Reset & Global Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden; /* Prevents scrollbars during full-screen app execution */
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* --- 2. Container & Canvas Styling --- */
+#game-container, .app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+}
+
+/* Primary viewport canvas for WebGL / WebAssembly execution */
+canvas, #canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  image-rendering: pixelated; /* Preserves crispness for retro/pixel assets */
+  image-rendering: crisp-edges;
+  border: none;
+  outline: none;
+}
+
+/* --- 3. Loading Overlay & Decoder UI --- */
+#loading-screen, .decoder-status {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 100;
+  color: #e0e0e0;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Progress bar container */
+.progress-bar-container {
+  width: 280px;
+  height: 12px;
+  background-color: #1a1a1a;
+  border: 1px solid #333333;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Active progress indicator */
+.progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  transition: width 0.2s ease-in-out;
+}
+
+/* Spinner indicator */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- 4. Controls & Overlay UI Elements --- */
+.ui-overlay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-icon {
+  background: rgba(20, 20, 20, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-icon:hover {
+  background: rgba(40, 40, 40, 0.9);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Hidden utility class for elements managed via JS */
+.hidden {
+  display: none !important;
+}
+
+/* --- 5. Mobile & Touch Screen Adaptations --- */
+@media (max-width: 768px) {
+  #loading-screen {
+    width: 85%;
+  }
+
+  .progress-bar-container {
+    width: 100%;
+  }
+}
